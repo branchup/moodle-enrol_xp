@@ -30,8 +30,8 @@ use MoodleQuickForm;
 use stdClass;
 
 // TODO Set a cron job to check what levels we may have missed, or existing ones for that matter.
-// TODO Enable plugin upon install/upgrade.
 // TODO Optional message to be sent to the user.
+// TODO Allow enrolments to be managed.
 
 /**
  * Enrol plugin class.

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Enrol upgrade.
  *
  * @package    enrol_xp
  * @copyright  2017 Frédéric Massart <fred@branchup.tech>
@@ -24,8 +24,33 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version    = 2017111401;
-$plugin->requires   = 2016052300;   // Moodle 3.1.0.
-$plugin->component  = 'enrol_xp';
-$plugin->maturity   = MATURITY_STABLE;
-$plugin->release    = '1.0.0';
+/**
+ * Enrol upgrade function.
+ *
+ * @param int $oldversion Old version.
+ * @return true
+ */
+function xmldb_enrol_xp_upgrade() {
+    global $CFG, $DB;
+
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2017111401) {
+
+        // Enable the method by default.
+        // Code copied from admin/enrol.php.
+        $enabled = enrol_get_plugins(true);
+        $enabled = array_keys($enabled);
+        $enabled[] = 'xp';
+        set_config('enrol_plugins_enabled', implode(',', $enabled));
+        core_plugin_manager::reset_caches();
+        $syscontext = context_system::instance();
+        $syscontext->mark_dirty(); // Resets all enrol caches.
+
+        // Xp savepoint reached.
+        upgrade_block_savepoint(true, 2017111401, 'xp');
+    }
+
+    return true;
+
+}
