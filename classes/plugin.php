@@ -31,7 +31,6 @@ use stdClass;
 
 // TODO Set a cron job to check what levels we may have missed, or existing ones for that matter.
 // TODO Enable plugin upon install/upgrade.
-// TODO Fix form validation.
 // TODO Optional message to be sent to the user.
 
 /**
@@ -90,10 +89,7 @@ class plugin extends \enrol_plugin {
         $mform->setType('name', PARAM_TEXT);
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'server');
 
-        $config = \block_xp\di::get('config');
-        $wholesite = $config->get('context') == CONTEXT_SYSTEM;
-
-        if (!$wholesite) {
+        if (!$this->is_levelup_set_for_whole_site()) {
             // The level to attain.
             $mform->addElement('text', 'customint1', get_string('leveltoattain', 'enrol_xp'));
             $mform->setType('customint1', PARAM_INT);
@@ -119,7 +115,9 @@ class plugin extends \enrol_plugin {
             $mform->addElement('select', 'customint1', get_string('leveltoattain', 'enrol_xp'), $options);
             $mform->setType('customint1', PARAM_INT);
 
-            // The course where it should be attained.
+            // The course where it should be attained. Note that if the value of customint2 was another
+            // course, and this is being edited and save, the initial value is lost. That could happen
+            // when the block is switched from course mode, to whole site mode.
             $mform->addElement('hidden', 'customint2');
             $mform->setType('customint2', PARAM_INT);
             $mform->setConstant('customint2', SITEID);
@@ -146,8 +144,12 @@ class plugin extends \enrol_plugin {
     public function edit_instance_validation($data, $files, $instance, $context) {
         $errors = [];
 
-        if (empty($data['customint1'])) {
-            $errors['customint1'] = 'No, no and no!';
+        if (empty($data['customint1']) || $data['customint1'] < 2) {
+            $errors['customint1'] = get_string('invalidlevel', 'enrol_xp');
+        }
+
+        if (empty($data['customint2'])) {
+            $errors['customint2'] = get_string('invaliddata', 'error');
         }
 
         return $errors;
@@ -208,6 +210,16 @@ class plugin extends \enrol_plugin {
             $context = context_course::instance($instance->courseid);
             return format_string($instance->name, true, ['context' => $context]);
         }
+    }
+
+    /**
+     * Is Level up! set for the whole site?
+     *
+     * @return bool
+     */
+    protected function is_levelup_set_for_whole_site() {
+        $config = \block_xp\di::get('config');
+        return $config->get('context') == CONTEXT_SYSTEM;;
     }
 
     /**

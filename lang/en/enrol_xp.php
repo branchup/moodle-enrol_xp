@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['invalidlevel'] = 'The level must be a number equal or higher than 2.';
 $string['levelincourse'] = 'Course to attain level in';
 $string['levelninvalid'] = '{$a} (invalid)';
 $string['leveltoattain'] = 'Level to attain';
