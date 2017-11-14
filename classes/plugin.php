@@ -31,7 +31,6 @@ use stdClass;
 
 // TODO Set a cron job to check what levels we may have missed, or existing ones for that matter.
 // TODO Optional message to be sent to the user.
-// TODO Allow enrolments to be managed.
 
 /**
  * Enrol plugin class.
@@ -41,6 +40,16 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class plugin extends \enrol_plugin {
+
+    /**
+     * Does this plugin allow manual unenrolment of users?
+     *
+     * @param stdClass $instance Course enrol instance.
+     * @return bool
+     */
+    public function allow_unenrol(stdClass $instance) {
+        return true;
+    }
 
     /**
      * Return true if we can add a new instance to this course.
@@ -153,6 +162,28 @@ class plugin extends \enrol_plugin {
         }
 
         return $errors;
+    }
+
+    /**
+     * Returns action icons.
+     *
+     * @param stdClass $instance The instance.
+     * @return array
+     */
+    public function get_action_icons(stdClass $instance) {
+        global $OUTPUT;
+        $icons = parent::get_action_icons($instance);
+
+        if ($this->can_add_instance($instance->courseid)) {
+            $url = new \moodle_url('/enrol/xp/sync.php', [
+                'instanceid' => $instance->id,
+                'sesskey' => sesskey()
+            ]);
+            $icons[] = $OUTPUT->action_icon($url, new \pix_icon('t/reset', get_string('syncpossiblemissing', 'enrol_xp'),
+                'core', ['class' => 'iconsmall']));
+        }
+
+        return $icons;
     }
 
     /**

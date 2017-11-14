@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion Old version.
  * @return true
  */
-function xmldb_enrol_xp_upgrade() {
+function xmldb_enrol_xp_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
@@ -48,7 +48,7 @@ function xmldb_enrol_xp_upgrade() {
         $syscontext->mark_dirty(); // Resets all enrol caches.
 
         // Xp savepoint reached.
-        upgrade_block_savepoint(true, 2017111401, 'xp');
+        upgrade_plugin_savepoint(true, 2017111401, 'enrol', 'xp');
     }
 
     return true;

@@ -36,4 +36,14 @@ $capabilities = [
         ]
     ],
 
+    // Whether or not the user can unenrol other users.
+    'enrol/xp:unenrol' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => [
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ]
+    ],
+
 ];
