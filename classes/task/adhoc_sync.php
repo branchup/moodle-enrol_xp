@@ -86,6 +86,7 @@ class adhoc_sync extends \core\task\adhoc_task {
         $recordset = $db->get_recordset_sql($sql, $params);
         foreach ($recordset as $record) {
             $plugin->enrol_user($instance, $record->userid, $instance->roleid, 0, 0, ENROL_USER_ACTIVE);
+            $plugin->send_welcome_message($instance, $record->userid);
         }
         $recordset->close();
     }

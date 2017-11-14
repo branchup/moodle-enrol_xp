@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Message providers.
  *
  * @package    enrol_xp
  * @copyright  2017 Frédéric Massart <fred@branchup.tech>
@@ -24,8 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version    = 2017111403;
-$plugin->requires   = 2016052300;   // Moodle 3.1.0.
-$plugin->component  = 'enrol_xp';
-$plugin->maturity   = MATURITY_STABLE;
-$plugin->release    = '1.0.0';
+$messageproviders = [
+    // Message sent when enrolled in a course.
+    'welcomemessage' => [
+        'defaults' => [
+            'popup' => MESSAGE_PERMITTED + MESSAGE_DEFAULT_LOGGEDIN + MESSAGE_DEFAULT_LOGGEDOFF,
+            'email' => MESSAGE_PERMITTED + MESSAGE_DEFAULT_LOGGEDOFF,
+        ],
+    ],
+];

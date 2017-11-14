@@ -24,13 +24,27 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['course'] = 'Go to course';
 $string['adhocsyncscheduled'] = 'Missing enrolments will be synchronised in the following minutes (during cron).';
 $string['invalidlevel'] = 'The level must be a number equal or higher than 2.';
 $string['levelincourse'] = 'Course to attain level in';
 $string['levelninvalid'] = '{$a} (invalid)';
 $string['leveltoattain'] = 'Level to attain';
+$string['messageprovider:welcomemessage'] = 'Welcome message';
 $string['notethat'] = 'Note';
 $string['noteaboutexistingenrolment'] = 'This enrolment method has no effect when the user is already enrolled in the course, even if their enrolment is outdated, suspended or disabled.';
 $string['pluginname'] = 'Level enrolment';
 $string['syncpossiblemissing'] = 'Sync and look for possible missing enrolments.';
+$string['welcomemessage'] = 'A welcome message';
+$string['welcomemessage_help'] = 'A message that will be sent to users when they are enrolled in the course. Leave this empty if you do not wish to send a message.
+
+The following placeholders are available:
+
+* [level]: The level they had to attain
+* [fullname]: The user\'s full name
+* [firstname]: The user\'s first name
+
+The format supported is [Markdown](https://en.wikipedia.org/wiki/Markdown).
+';
 $string['wholesite'] = 'Whole site';
+$string['youhavebeenenrolled'] = 'You have been enrolled in a new course.';

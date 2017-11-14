@@ -26,11 +26,10 @@ namespace enrol_xp;
 defined('MOODLE_INTERNAL') || die();
 
 use context_course;
+use core_user;
+use moodle_url;
 use MoodleQuickForm;
 use stdClass;
-
-// TODO Set a cron job to check what levels we may have missed, or existing ones for that matter.
-// TODO Optional message to be sent to the user.
 
 /**
  * Enrol plugin class.
@@ -40,6 +39,18 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class plugin extends \enrol_plugin {
+
+    /**
+     * Add new instance.
+     *
+     * @param object $course The course.
+     * @param array $fields The data.
+     * @return int|null
+     */
+    public function add_instance($course, array $fields = null) {
+        $fields = $this->preprocess_data($fields);
+        return parent::add_instance($course, $fields);
+    }
 
     /**
      * Does this plugin allow manual unenrolment of users?
@@ -135,6 +146,10 @@ class plugin extends \enrol_plugin {
         // The role to give.
         $roles = $this->get_assignable_roles($context, $instance->roleid);
         $mform->addElement('select', 'roleid', get_string('role', 'core'), $roles);
+
+        // Welcome message.
+        $mform->addElement('textarea', 'customtext1', get_string('welcomemessage', 'enrol_xp'), ['cols' => 60, 'rows' => 8]);
+        $mform->addHelpButton('customtext1', 'welcomemessage', 'enrol_xp');
 
         // Info.
         $mform->addElement('static', 'info', get_string('notethat', 'enrol_xp'),
@@ -254,6 +269,69 @@ class plugin extends \enrol_plugin {
     }
 
     /**
+     * Preprocess data.
+     *
+     * @param array|null $data The data.
+     * @return array|null
+     */
+    protected function preprocess_data(array $data = null) {
+        if (!$data) {
+            return;
+        }
+
+        $text = $data['customtext1'];
+        $stripped = trim(str_replace('&nbsp;', '', strip_tags($text)));
+        if (!empty($stripped)) {
+            $data['customtext1'] = $text;
+        } else {
+            $data['customtext1'] = '';
+        }
+
+        return $data;
+    }
+
+    /**
+     * Send message.
+     *
+     * @param stdClass $instance The instance.
+     * @param int|stdClass $userid The user ID.
+     * @return void
+     */
+    public function send_welcome_message($instance, $userorid) {
+        if (empty($instance->customtext1)) {
+            return;
+        }
+
+        $user = $userorid;
+        if (!is_object($user)) {
+            $user = core_user::get_user($userorid);
+        }
+
+        $text = $instance->customtext1;
+        $text = str_replace('[level]', $instance->customint1, $text);
+        $text = str_replace('[fullname]', fullname($user), $text);
+        $text = str_replace('[firstname]', $user->firstname, $text);
+
+        $message = new \core\message\message();
+        $message->courseid = $instance->courseid;
+        $message->component = 'enrol_xp';
+        $message->name = 'welcomemessage';
+        $message->notification = 1;
+        $message->userfrom = core_user::get_noreply_user();
+        $message->userto = $user->id;
+        $message->subject = get_string('youhavebeenenrolled', 'enrol_xp');
+        $message->fullmessage = $text;
+        $message->fullmessageformat = FORMAT_MARKDOWN;
+        $message->fullmessagehtml = format_text($text, FORMAT_MARKDOWN, [
+            'context' => context_course::instance($instance->courseid)
+        ]);
+        $message->smallmessage = '';
+        $message->contexturl = new moodle_url('/course/view.php', ['id' => $instance->courseid]);
+        $message->contexturlname = get_string('course', 'core');
+        message_send($message);
+    }
+
+    /**
      * Attempt to automatically enrol current user in course without any interaction,
      *
      * This should return either a timestamp in the future or false.
@@ -293,6 +371,18 @@ class plugin extends \enrol_plugin {
         }
 
         return false;
+    }
+
+    /**
+     * Update instance of enrol plugin.
+     *
+     * @param stdClass $instance The instance.
+     * @param stdClass $data The data.
+     * @return boolean
+     */
+    public function update_instance($instance, $data) {
+        $data = $this->preprocess_data((array) $data);
+        return parent::update_instance($instance, (object) $data);
     }
 
     /**
