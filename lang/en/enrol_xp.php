@@ -47,4 +47,6 @@ The following placeholders are available:
 The format supported is [Markdown](https://en.wikipedia.org/wiki/Markdown).
 ';
 $string['wholesite'] = 'Whole site';
+$string['xp:config'] = 'Configure enrolment instances';
+$string['xp:unenrol'] = 'Unenrol users';
 $string['youhavebeenenrolled'] = 'You have been enrolled in a new course.';
