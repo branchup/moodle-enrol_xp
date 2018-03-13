@@ -250,8 +250,12 @@ class plugin extends \enrol_plugin {
             $context = context_course::instance($course->id);
             $role = $db->get_record('role', ['id' => $instance->roleid]);
             $rolename = role_get_name($role, $context);
-            $coursename = $instance->customint2 == SITEID ? get_string('wholesite', 'enrol_xp') :
-                format_string($course->fullname, true, ['context' => $context]);
+
+            $coursename = get_string('wholesite', 'enrol_xp');
+            if ($instance->customint2 != SITEID) {
+                $coursename = format_string($course->fullname, true, ['context' => $context]);
+            }
+
             return sprintf("%s (%s at level %s+ in %s)", $name, $rolename, $instance->customint1, $coursename);
         } else {
             $context = context_course::instance($instance->courseid);

@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers =  [
+$observers = [
     [
         'eventname' => '\\block_xp\\event\\user_leveledup',
         'callback' => 'enrol_xp\\observer::user_leveledup'
