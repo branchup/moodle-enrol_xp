@@ -1,12 +1,12 @@
 Enrol level
 ===========
 
-Enrol users in courses when a certain level from [Level up!]() is attained.
+Enrol users in courses when a certain level from [Level up!](https://moodle.org/plugins/block_xp) is attained.
 
 Requirements
 ------------
 
-- Level Up! 3.0 or greater.
+- Level Up! 3.1 or greater.
 - Moodle 2.7 or greater.
 
 How to use
@@ -15,6 +15,16 @@ How to use
 Navigate to a course, and go the enrolment methods. The link to the enrolment methods can be found in the administration block under _Course administation > Users_ and sometimes in the participants page in the _cog menu_.
 
 From that page, add the method _Level enrolment_ by selecting it in the dropdown menu, and configure it as per your requirements.
+
+When are users enrolled?
+------------------------
+
+Enrolment occurs two different ways:
+
+- Automatically, when a user reaches the required level.
+- Manually, when triggered from the enrolment methods screen.
+
+The manual method is useful to enrol all users who already attained the level. Note that this requires cron to be enabled.
 
 Installation
 ------------
