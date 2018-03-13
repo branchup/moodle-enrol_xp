@@ -118,6 +118,7 @@ class plugin extends \enrol_plugin {
             $mform->addElement('course', 'customint2', get_string('levelincourse', 'enrol_xp'), [
                 'exclude' => $instance->courseid
             ]);
+            $mform->setType('customint2', PARAM_INT);
 
         } else {
             $factory = \block_xp\di::get('course_world_factory');
