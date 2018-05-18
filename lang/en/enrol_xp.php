@@ -34,6 +34,7 @@ $string['messageprovider:welcomemessage'] = 'Welcome message';
 $string['notethat'] = 'Note';
 $string['noteaboutexistingenrolment'] = 'This enrolment method has no effect when the user is already enrolled in the course, even if their enrolment is outdated, suspended or disabled.';
 $string['pluginname'] = 'Level enrolment';
+$string['privacy:metadata'] = 'The plugin does not store any user information.';
 $string['syncpossiblemissing'] = 'Sync and look for possible missing enrolments.';
 $string['welcomemessage'] = 'A welcome message';
 $string['welcomemessage_help'] = 'A message that will be sent to users when they are enrolled in the course. Leave this empty if you do not wish to send a message.
