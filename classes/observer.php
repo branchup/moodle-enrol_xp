@@ -75,7 +75,7 @@ class observer {
                 continue;
             }
             $plugin->enrol_user($instance, $userid, $instance->roleid, 0, 0, ENROL_USER_ACTIVE);
-            $plugin->send_welcome_message($instance, $record->userid);
+            $plugin->send_welcome_message($instance, $userid);
         }
     }
 
