@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.0.2
+------
+
+- Fix issue when sending enrolment message
+
 v1.0.1
 ------
 
