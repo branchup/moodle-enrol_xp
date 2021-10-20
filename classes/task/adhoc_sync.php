@@ -74,8 +74,11 @@ class adhoc_sync extends \core\task\adhoc_task {
         $sql = "
             SELECT x.userid
               FROM {block_xp} x
+              JOIN {user} u
+                ON u.id = x.userid
              WHERE x.courseid = :courseid
                AND x.xp >= :xp
+               AND u.deleted = 0
                AND x.userid NOT IN ($enrolledsql)";
         $params = $enrolledparams + [
             'courseid' => $instance->customint2,
