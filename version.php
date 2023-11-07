@@ -24,11 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version      = 2020101400;
+$plugin->version      = 2023110700;
 $plugin->requires     = 2016052300;   // Moodle 3.1.0.
 $plugin->component    = 'enrol_xp';
 $plugin->maturity     = MATURITY_STABLE;
-$plugin->release      = '1.0.3';
+$plugin->release      = '1.0.4';
 $plugin->dependencies = [
-    'block_xp' => 2017091000
+    'block_xp' => 2017091000,
 ];
