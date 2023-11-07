@@ -24,12 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$enabledflag = defined('MESSAGE_DEFAULT_ENABLED') ? MESSAGE_DEFAULT_ENABLED : MESSAGE_DEFAULT_LOGGEDIN + MESSAGE_DEFAULT_LOGGEDOFF;
+$enabledflagoff = defined('MESSAGE_DEFAULT_ENABLED') ? MESSAGE_DEFAULT_ENABLED : MESSAGE_DEFAULT_LOGGEDOFF;
+
 $messageproviders = [
     // Message sent when enrolled in a course.
     'welcomemessage' => [
         'defaults' => [
-            'popup' => MESSAGE_PERMITTED + MESSAGE_DEFAULT_LOGGEDIN + MESSAGE_DEFAULT_LOGGEDOFF,
-            'email' => MESSAGE_PERMITTED + MESSAGE_DEFAULT_LOGGEDOFF,
+            'popup' => MESSAGE_PERMITTED + $enabledflag,
+            'email' => MESSAGE_PERMITTED + $enabledflagoff,
         ],
     ],
 ];

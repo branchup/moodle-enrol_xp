@@ -23,7 +23,6 @@
  */
 
 namespace enrol_xp;
-defined('MOODLE_INTERNAL') || die();
 
 use context_course;
 use core_user;
@@ -116,7 +115,7 @@ class plugin extends \enrol_plugin {
 
             // The place where the level must be attained.
             $mform->addElement('course', 'customint2', get_string('levelincourse', 'enrol_xp'), [
-                'exclude' => $instance->courseid
+                'exclude' => $instance->courseid,
             ]);
             $mform->setType('customint2', PARAM_INT);
 
@@ -193,7 +192,7 @@ class plugin extends \enrol_plugin {
         if ($this->can_add_instance($instance->courseid)) {
             $url = new \moodle_url('/enrol/xp/sync.php', [
                 'instanceid' => $instance->id,
-                'sesskey' => sesskey()
+                'sesskey' => sesskey(),
             ]);
             $icons[] = $OUTPUT->action_icon($url, new \pix_icon('t/reset', get_string('syncpossiblemissing', 'enrol_xp'),
                 'core', ['class' => 'iconsmall']));
@@ -231,7 +230,7 @@ class plugin extends \enrol_plugin {
         $roleid = $DB->get_field('role', 'id', ['archetype' => 'student'], IGNORE_MULTIPLE);
 
         return [
-            'roleid' => $roleid
+            'roleid' => $roleid,
         ];
     }
 
@@ -328,7 +327,7 @@ class plugin extends \enrol_plugin {
         $message->fullmessage = $text;
         $message->fullmessageformat = FORMAT_MARKDOWN;
         $message->fullmessagehtml = format_text($text, FORMAT_MARKDOWN, [
-            'context' => context_course::instance($instance->courseid)
+            'context' => context_course::instance($instance->courseid),
         ]);
         $message->smallmessage = '';
         $message->contexturl = new moodle_url('/course/view.php', ['id' => $instance->courseid]);

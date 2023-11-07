@@ -7,7 +7,7 @@ Requirements
 ------------
 
 - Level Up XP 3.1 or greater.
-- Moodle 2.7 or greater.
+- Moodle 3.1 or greater.
 
 How to use
 ----------

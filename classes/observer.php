@@ -23,7 +23,6 @@
  */
 
 namespace enrol_xp;
-defined('MOODLE_INTERNAL') || die();
 
 use context_course;
 
@@ -59,7 +58,7 @@ class observer {
         $params = [
             'userid' => $userid,
             'courseid' => empty($event->courseid) ? SITEID : $event->courseid,
-            'level' => $event->other['level']
+            'level' => $event->other['level'],
         ];
 
         $instances = $db->get_records_sql($sql, $params);

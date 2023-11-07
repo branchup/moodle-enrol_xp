@@ -41,7 +41,7 @@ $adhocktask = new \enrol_xp\task\adhoc_sync($instanceid);
 $adhocktask->set_component('enrol_xp');
 $adhocktask->set_userid($USER->id);
 $adhocktask->set_custom_data([
-    'instanceid' => $instanceid
+    'instanceid' => $instanceid,
 ]);
 $adhocktask->execute();
 \core\task\manager::queue_adhoc_task($adhocktask);
