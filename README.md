@@ -9,6 +9,8 @@ Requirements
 - Level Up XP 3.1 or greater.
 - Moodle 3.1 or greater.
 
+_Running behats tests requires XP 18.0 or greater._
+
 How to use
 ----------
 
