@@ -46,7 +46,7 @@ class plugin extends \enrol_plugin {
      * @param array $fields The data.
      * @return int|null
      */
-    public function add_instance($course, array $fields = null) {
+    public function add_instance($course, ?array $fields = null) {
         $fields = $this->preprocess_data($fields);
         return parent::add_instance($course, $fields);
     }
@@ -278,7 +278,7 @@ class plugin extends \enrol_plugin {
      * @param array|null $data The data.
      * @return array|null
      */
-    protected function preprocess_data(array $data = null) {
+    protected function preprocess_data(?array $data = null) {
         if (!$data) {
             return;
         }
