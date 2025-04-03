@@ -24,15 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['course'] = 'Go to course';
 $string['adhocsyncscheduled'] = 'Missing enrolments will be synchronised in the following minutes (during cron).';
+$string['course'] = 'Go to course';
 $string['invalidlevel'] = 'The level must be a number equal or higher than 2.';
 $string['levelincourse'] = 'Course to attain level in';
 $string['levelninvalid'] = '{$a} (invalid)';
 $string['leveltoattain'] = 'Level to attain';
 $string['messageprovider:welcomemessage'] = 'Level Up XP enrolment welcome message';
-$string['notethat'] = 'Note';
 $string['noteaboutexistingenrolment'] = 'This enrolment method has no effect when the user is already enrolled in the course, even if their enrolment is outdated, suspended or disabled.';
+$string['notethat'] = 'Note';
 $string['pluginname'] = 'Level Up XP Enrolment';
 $string['privacy:metadata'] = 'The plugin does not store any user information.';
 $string['syncpossiblemissing'] = 'Sync and look for possible missing enrolments.';
