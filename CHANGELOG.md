@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v1.0.5
+------
+
+- Behat tests to confirm behaviour of level enrolment
+- Minor coding style and depreciation updates
+
 v1.0.4
 ------
 
