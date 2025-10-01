@@ -35,7 +35,6 @@ use moodle_exception;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class adhoc_sync extends \core\task\adhoc_task {
-
     /**
      * Execute.
      */
@@ -66,7 +65,7 @@ class adhoc_sync extends \core\task\adhoc_task {
             return;
         }
 
-        list($enrolledsql, $enrolledparams) = get_enrolled_sql($context);
+        [$enrolledsql, $enrolledparams] = get_enrolled_sql($context);
 
         // Now hardcode the fetching.
         // TODO Add an interface to block_xp which allows this to happen.
@@ -92,5 +91,4 @@ class adhoc_sync extends \core\task\adhoc_task {
         }
         $recordset->close();
     }
-
 }

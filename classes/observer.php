@@ -34,7 +34,6 @@ use context_course;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class observer {
-
     /**
      * Observe the event of a level up.
      *
@@ -77,5 +76,4 @@ class observer {
             $plugin->send_welcome_message($instance, $userid);
         }
     }
-
 }

@@ -38,7 +38,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class plugin extends \enrol_plugin {
-
     /**
      * Add new instance.
      *
@@ -118,7 +117,6 @@ class plugin extends \enrol_plugin {
                 'exclude' => $instance->courseid,
             ]);
             $mform->setType('customint2', PARAM_INT);
-
         } else {
             $factory = \block_xp\di::get('course_world_factory');
             $world = $factory->get_world($instance->courseid);
@@ -152,8 +150,12 @@ class plugin extends \enrol_plugin {
         $mform->addHelpButton('customtext1', 'welcomemessage', 'enrol_xp');
 
         // Info.
-        $mform->addElement('static', 'info', get_string('notethat', 'enrol_xp'),
-            get_string('noteaboutexistingenrolment', 'enrol_xp'));
+        $mform->addElement(
+            'static',
+            'info',
+            get_string('notethat', 'enrol_xp'),
+            get_string('noteaboutexistingenrolment', 'enrol_xp')
+        );
     }
 
     /**
@@ -194,8 +196,12 @@ class plugin extends \enrol_plugin {
                 'instanceid' => $instance->id,
                 'sesskey' => sesskey(),
             ]);
-            $icons[] = $OUTPUT->action_icon($url, new \pix_icon('t/reset', get_string('syncpossiblemissing', 'enrol_xp'),
-                'core', ['class' => 'iconsmall']));
+            $icons[] = $OUTPUT->action_icon($url, new \pix_icon(
+                't/reset',
+                get_string('syncpossiblemissing', 'enrol_xp'),
+                'core',
+                ['class' => 'iconsmall']
+            ));
         }
 
         return $icons;
@@ -269,7 +275,7 @@ class plugin extends \enrol_plugin {
      */
     protected function is_levelup_set_for_whole_site() {
         $config = \block_xp\di::get('config');
-        return $config->get('context') == CONTEXT_SYSTEM;;
+        return $config->get('context') == CONTEXT_SYSTEM;
     }
 
     /**
