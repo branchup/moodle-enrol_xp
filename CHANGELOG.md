@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.0.6
+------
+
+- Minor coding style and depreciation updates
+
 v1.0.5
 ------
 
