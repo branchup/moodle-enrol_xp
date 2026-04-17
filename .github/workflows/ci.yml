@@ -99,7 +99,12 @@ jobs:
 
       - name: Moodle Code Checker
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpcs --max-warnings 0
+        run: |
+          WWWROOT=$(cd moodle; pwd)
+          if [ -d "$WWWROOT/public" ]; then
+            WWWROOT="$WWWROOT/public"
+          fi
+          moodle-plugin-ci phpcs --max-warnings 0 --standard $WWWROOT/enrol/xp/phpcs.xml
 
       # - name: Moodle PHPDoc Checker
       #   if: ${{ !cancelled() }}

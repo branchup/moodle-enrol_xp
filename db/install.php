@@ -38,5 +38,4 @@ function xmldb_enrol_xp_install() {
     core_plugin_manager::reset_caches();
     $syscontext = context_system::instance();
     $syscontext->mark_dirty(); // Resets all enrol caches.
-
 }
