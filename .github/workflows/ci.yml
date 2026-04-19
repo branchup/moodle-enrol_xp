@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  BLOCK_XP_TAG: 'v19.0'
+  BLOCK_XP_TAG: 'v20.0'
 
 jobs:
   test:
@@ -14,7 +14,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -47,6 +47,8 @@ jobs:
         exclude:
           - moodle-branch: MOODLE_405_STABLE
             php: 8.4
+          - moodle-branch: MOODLE_502_STABLE
+            php: 8.2
 
     steps:
       - name: Check out repository code
