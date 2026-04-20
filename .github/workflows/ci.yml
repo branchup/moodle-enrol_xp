@@ -6,11 +6,14 @@ on:
       - master
 
 env:
-  BLOCK_XP_TAG: 'v20.0'
+  BLOCK_XP_TAG: 'v20.0-rc1'
+  TESTS_REPO_TAG: 'master'
 
 jobs:
   test:
     runs-on: ubuntu-22.04
+    env:
+      HAS_TESTS_REPO_SSHKEY: ${{ secrets.TESTS_REPO_SSHKEY != '' }}
 
     services:
       postgres:
@@ -77,6 +80,23 @@ jobs:
       - name: Add plugin block_xp ${{ env.BLOCK_XP_TAG }}
         run: moodle-plugin-ci add-plugin --branch ${{ env.BLOCK_XP_TAG }} FMCorz/moodle-block_xp
 
+      - name: Delete queued block_xp tests content
+        if: ${{ env.HAS_TESTS_REPO_SSHKEY == 'true' }}
+        run: |
+          rm -rf moodle-plugin-ci-plugins/moodle-block_xp/tests/* \
+            moodle-plugin-ci-plugins/moodle-block_xp/tests/.[!.]* \
+            moodle-plugin-ci-plugins/moodle-block_xp/tests/..?*
+
+      - name: Check out private block_xp tests repository
+        if: ${{ env.HAS_TESTS_REPO_SSHKEY == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          repository: branchup/block_xp-tests
+          ref: ${{ env.TESTS_REPO_TAG }}
+          path: moodle-plugin-ci-plugins/moodle-block_xp/tests
+          token: '-'
+          ssh-key: ${{ secrets.TESTS_REPO_SSHKEY }}
+
       - name: Install moodle-plugin-ci
         run: |
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
@@ -129,11 +149,11 @@ jobs:
       #   run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       - name: PHPUnit tests
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && env.HAS_TESTS_REPO_SSHKEY == 'true' }}
         run: moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Behat features
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && env.HAS_TESTS_REPO_SSHKEY == 'true' }}
         run: moodle-plugin-ci behat --profile chrome
 
       - name: Mark cancelled jobs as failed.
