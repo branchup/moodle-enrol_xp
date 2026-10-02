@@ -1,0 +1,37 @@
+# Schema: https://camp-registry.org/schema/listing.schema.json
+name: Level Up XP Enrol
+summary: Automatically enrol learners in new courses when they reach a required Level Up XP level.
+
+description: |
+  ## Unlock new courses as your learners level up.
+
+  Level Up XP Enrol automatically enrols learners in a course when they reach a level you choose in Level Up XP. Turn levelling up into an opportunity to explore new courses and continue learning.
+
+  For example, learners who reach Level 5 in an introductory course can be enrolled in a follow-on course automatically. You choose the required level and the course where learners must earn it. If XP runs across your whole site, enrolment can use their sitewide level instead.
+
+  ## Features
+
+  - Automatically enrol learners when they reach the required XP level.
+  - Use levels earned in a specific course or across the whole site, depending on your XP configuration.
+  - Send an optional welcome message, personalised with the learner's name and the required level.
+  - Synchronise enrolments for learners who already meet the level requirement.
+
+  ## How to use
+
+  Open the enrolment methods page in the course you want learners to join. Add **Level Up XP Enrol**, choose the required level and, when XP runs per course, select the course where that level must be attained. You can also set a welcome message.
+
+  New enrolments happen automatically when learners level up. To enrol learners who already qualify, trigger synchronisation from the enrolment methods page. Moodle's cron processes this synchronisation.
+
+  Learners who are already enrolled in the destination course are left unchanged; this method does not reactivate suspended or expired enrolments.
+
+labels:
+  - fully-free
+
+screenshots:
+  - path: .camp/screenshots/flow.png
+    caption: After joining the first course, learners are automatically enrolled in the next courses at Levels 5 and 10.
+
+links:
+  docs: https://docs.levelup.plus/xp/docs/how-to/course-enrolment/level-based-course-enrolment
+  issues: https://github.com/branchup/moodle-enrol_xp/issues
+  changelog: https://github.com/branchup/moodle-enrol_xp/blob/HEAD/CHANGELOG.md
