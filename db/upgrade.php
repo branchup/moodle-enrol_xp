@@ -34,7 +34,6 @@ function xmldb_enrol_xp_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2017111401) {
-
         // Enable the method by default.
         // Code copied from admin/enrol.php.
         $enabled = enrol_get_plugins(true);
@@ -50,5 +49,4 @@ function xmldb_enrol_xp_upgrade($oldversion) {
     }
 
     return true;
-
 }
